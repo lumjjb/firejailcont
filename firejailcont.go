@@ -24,5 +24,5 @@ func main() {
 
 	// We run the OCI runtime called "runnc", with root dir "/run/runnc"
 	// with the low level handlers chosen above.
-	llcli.Runllc("runwvc", "/run/runwvc", weirdVagrantLLCHandler)
+	llcli.Runllc("firejailcont", "/run/firejailcont", weirdVagrantLLCHandler)
 }
