@@ -1,10 +1,11 @@
 package main
 
 import (
-	ll "github.com/nabla-containers/runnc/llif"
-	"os"
+    "fmt"
 	"path/filepath"
 	"syscall"
+
+	ll "github.com/nabla-containers/runnc/llif"
 )
 
 type firejailExecHandler struct{}
@@ -19,8 +20,9 @@ func (h *firejailExecHandler) ExecRunFunc(i *ll.ExecRunInput) error {
 	bin := filepath.Join(cfg.Rootfs, cfg.Args[0])
 	argv := []string{bin}
 	argv = append(argv, cfg.Args[1:]...)
-	syscall.Exec("firejail", argv, os.Environ())
-	return nil
+    env := []string{"PATH=/usr/sbin:/usr/bin:/sbin:/bin"}
+    fmt.Printf("Executing following command: firejail %v\n with env: \n%v\n", argv, env)
+	return syscall.Exec("/usr/bin/firejail", argv, env)
 }
 
 func (h *firejailExecHandler) ExecDestroyFunc(i *ll.ExecDestroyInput) (*ll.LLState, error) {

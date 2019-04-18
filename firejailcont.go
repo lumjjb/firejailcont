@@ -17,12 +17,13 @@ func main() {
 		panic(err)
 	}
 
-	weirdVagrantLLCHandler := ll.RunllcHandler{
+	firejailLLCHandler := ll.RunllcHandler{
 		FsH:      fsH,
 		NetworkH: networkH,
+        ExecH:    &firejailExecHandler{},
 	}
 
 	// We run the OCI runtime called "runnc", with root dir "/run/runnc"
 	// with the low level handlers chosen above.
-	llcli.Runllc("firejailcont", "/run/firejailcont", weirdVagrantLLCHandler)
+	llcli.Runllc("firejailcont", "/run/firejailcont", firejailLLCHandler)
 }
