@@ -18,10 +18,10 @@ func (h *firejailExecHandler) ExecCreateFunc(i *ll.ExecCreateInput) (*ll.LLState
 func (h *firejailExecHandler) ExecRunFunc(i *ll.ExecRunInput) error {
 	cfg := i.Config
 	bin := filepath.Join(cfg.Rootfs, cfg.Args[0])
-	argv := []string{bin}
+	argv := []string{"firejail", bin}
 	argv = append(argv, cfg.Args[1:]...)
     env := []string{"PATH=/usr/sbin:/usr/bin:/sbin:/bin"}
-    fmt.Printf("Executing following command: firejail %v\n with env: \n%v\n", argv, env)
+    fmt.Printf("Executing following command: /usr/bin/firejail %v\n with env: \n%v\n", argv, env)
 	return syscall.Exec("/usr/bin/firejail", argv, env)
 }
 
