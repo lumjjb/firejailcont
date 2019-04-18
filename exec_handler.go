@@ -1,7 +1,7 @@
 package main
 
 import (
-    "fmt"
+	"fmt"
 	"path/filepath"
 	"syscall"
 
@@ -20,8 +20,8 @@ func (h *firejailExecHandler) ExecRunFunc(i *ll.ExecRunInput) error {
 	bin := filepath.Join(cfg.Rootfs, cfg.Args[0])
 	argv := []string{"firejail", bin}
 	argv = append(argv, cfg.Args[1:]...)
-    env := []string{"PATH=/usr/sbin:/usr/bin:/sbin:/bin"}
-    fmt.Printf("Executing following command: /usr/bin/firejail %v\n with env: \n%v\n", argv, env)
+	env := []string{"PATH=/usr/sbin:/usr/bin:/sbin:/bin"}
+	fmt.Printf("Executing following command: /usr/bin/firejail %v\n with env: \n%v\n", argv, env)
 	return syscall.Exec("/usr/bin/firejail", argv, env)
 }
 
